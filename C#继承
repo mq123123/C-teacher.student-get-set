@@ -4,17 +4,17 @@ namespace _11._30作业题
 {   
     class clsPerson
     {
-        
-        protected string name;
-        protected int num;
-        protected string gender;
-        public clsPerson()      //构造函数初始化
+
+        protected string name ;
+        protected int num  ;
+        protected string gender ;
+      /*  public clsPerson()      //构造函数初始化
         {
             name = "null";
             num = 0;
             gender = "null";
 
-        }
+        }*/
         public void getinmage_P(string name,int num,string gender )     //输入方法
         {
             this.name = name;
@@ -32,12 +32,12 @@ namespace _11._30作业题
     class clsStudent:clsPerson      //继承基类：clsPerson类
     {
         protected int score;        //新增字段：分数
-        public clsStudent()         //构造函数初始化
+        /*public clsStudent()         //构造函数初始化
         {
             score = 0;
-        }
+        }*/
 
-        public void getimage_S(int score)   //输入的方法
+        public void getinmage_S(int score)   //输入的方法
         {
             this.score = score; 
         }
@@ -50,11 +50,11 @@ namespace _11._30作业题
     }
     class clsTeacher:clsPerson      //继承基类：clsPerson类
     {
-        protected int age;      //新增字段：教龄
-        public clsTeacher()      //构造函数初始化
+        protected int age ;     //新增字段：教龄
+        /*public clsTeacher()      //构造函数初始化
         {
             age = 0;
-        }
+        }*/
         public void getinmage_T(int age)    //输入的方法
         {
             this.age = age;
@@ -67,67 +67,121 @@ namespace _11._30作业题
     class Program
     {
         static void Main()
-        {Console.WriteLine("您是学生还是教师？\n 老师输入： tcr 学生输入：std");
+        {
+ 
+            /*
+             创建一个分支结构 分别处理用户输入教师和学生的情况
+             并在用户输入身份后继续创建一个分支结构处理用户的请求
+             */
+            clsTeacher tr_1 = new clsTeacher();     //在此处实例化teacher保证对象的生命周期直到程序结束
+            clsStudent st_2 = new clsStudent();     //相同，保证生命周期
+                                                    //创建一个循环--保证用户操作完不会立即结束
+
+               
+while (true) { 
+        start:          
+         Console.WriteLine("您是学生还是教师？\n 老师输入： tcr 学生输入：std");
             string choice_1 = Convert.ToString(Console.ReadLine());     //分别读取用户的选择
             Console.WriteLine("请输入你的选择 :\n(set 输入信息 ，get输出信息)");
-            string choice_2 = Convert.ToString(Console.ReadLine());     //分别读取用户的选择
-            
-           /*
-            创建一个分支结构 分别处理用户输入教师和学生的情况
-            并在用户输入身份后继续创建一个分支结构处理用户的请求
-            */
-           
-            
-            if (choice_1 =="tcr")
+            string choice_2 = Convert.ToString(Console.ReadLine());     //分别读取用户的选择  
+           if (choice_1 =="tcr")
             {
-                if (choice_2 == "get")//实行输出功能
+        start_1:   if (choice_2 == "get")//实行输出功能     
                 {
-                    
+                   
+                    tr_1.setimage_T();
+                    tr_1.setinmage_P();
+                        
+                        Console.WriteLine("q to quit"); 
+                        string me = Convert.ToString(Console.ReadLine());           //简单分支结构判断是否退出循环
+                        if(me == "q")
+                        {   
+                            break;
+                        }
 
                 }
                 else if(choice_2 =="set")
                 {
                          
                     //实行储存用户输入信息的操作
-                    clsTeacher tr_1 = new clsTeacher();     //实例化 clsteacher
+                    
                     Console.WriteLine("请输入姓名：");                    
                     string a = Convert.ToString(Console.ReadLine());
                     Console.WriteLine("请输入编号：");
                     int  b = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine("请输入性别：");
                     string c = Convert.ToString(Console.ReadLine());
+                    Console.WriteLine("请输入教龄：");
+                    int d = Convert.ToInt32(Console.ReadLine());
                     tr_1.getinmage_P(a,b,c);
-
-                    
-                }
+                    tr_1.getinmage_T(d);
+                        //储存四个信息
+                        Console.WriteLine("q to quit");
+                        string me = Convert.ToString(Console.ReadLine());       //简单分支结构判断是否退出循环
+                        if (me == "q")
+                        {
+                            break;
+                        }
+                    }
                 else
                 {
-                                        //处理意外情况
+                    Console.WriteLine("Please enter \"get\"or\"\"set\"");            //处理意外情况
+                    goto start_1;
                 }
 
             }
-           else if  (choice_2 =="std" )
+           else if  (choice_1 =="std" )
             {
-                if (choice_2 == "get")
+     start_2:    if (choice_2 == "get")
                 {
-                                         //实行储存用户输入信息的操作
-                }
+                                          //实行储存用户输入信息的操作
+                    st_2.setinmage_S();
+                    st_2.setinmage_P();
+                               
+                        Console.WriteLine("q to quit");//简单分支结构判断是否退出循环
+                        string me = Convert.ToString(Console.ReadLine());
+                        if (me == "q")
+                        {
+                            break;
+                        }
+
+                    }
                 else if(choice_2 =="set")
                 {
-                                            //实行输出功能
-                }
+                                       //实行输出功能
+                    Console.WriteLine("请输入姓名：");
+                    string a = Convert.ToString(Console.ReadLine());
+                    Console.WriteLine("请输入编号：");
+                    int b = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("请输入性别：");
+                    string c = Convert.ToString(Console.ReadLine());
+                    Console.WriteLine("请输入你的分数：");
+                    int d = Convert.ToInt32 (Console.ReadLine());
+                    st_2.getinmage_P(a, b, c);
+                    st_2.getinmage_S(d);
+                        
+                        Console.WriteLine("q to quit"); 
+                        string me = Convert.ToString(Console.ReadLine());              //简单分支结构判断是否退出循环
+                        if (me == "q")
+                        {
+                            break;
+                        }
+                    }
                 else
                 {
-                                            //处理意外情况
+                    Console.WriteLine("Please enter \"get\"or\"\"set\"");    //处理意外情况
+                    goto start_2;
                 }
 
             }
            else
             {
-                                            //处理意外情况
-
+                Console.WriteLine("Please enter \"std\"or\"tcr\"");                           //处理意外情况
+                goto start;
             }
-                   
+               }    
         }
     }
 }
+
+
